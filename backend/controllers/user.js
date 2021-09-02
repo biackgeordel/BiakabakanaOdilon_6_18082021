@@ -19,12 +19,29 @@ exports.Usersignup=(req,res)=>{
         if(error){
             res.status(422).json({message:error.message});
         }else{
-            user.email=bcrypt.hashSync(user.email,10);
-            user.password=bcrypt.hashSync(user.password,10);
-            console.log('user bcrypt'+user);
-            user.save({validateBeforeSave:false})
-            .then(()=>res.status(201).json({message:"compte crée avec succes"}))
-            .catch(error=>res.json({message:error.message}));    
+            User.find({},(error,users)=>{
+                if(error){
+                     return res.status(500).json({message:error.message});
+                }else{
+                    console.log(users);
+                for(let usertab of users){
+                    let valid=bcrypt.compareSync(user.email,usertab.email);
+                    if(valid){
+                        return res.status(400).json({message:"l'email saisie existe deja"});
+                    }else{
+                        user.email=bcrypt.hashSync(user.email,10);
+                        user.password=bcrypt.hashSync(user.password,10);
+                        console.log('user bcrypt'+user);
+                        user.save({validateBeforeSave:false})
+                        .then(()=>res.status(201).json({message:"compte crée avec succes"}))
+                        .catch(error=>res.json({message:error.message})); 
+
+                    }
+                }
+            }
+
+            })
+             
             }
         })
     };
