@@ -7,6 +7,16 @@ Pour faire fonctionne le backend vous devez tapez:
 * bcrypt  
 * crypto  
 * helmet  
-* express
+* express  
+* jsonwebtoken  
+* mongoose  
+* mongoose-unique-validator  
+* multer
+3 Pour faire fonctionnner le server vous devez tapez npm start   
+#### remarques:
+1 Le mot de passe pour créer un utilsateur doit etre au format ^[A-Z][a-z]+[0-9]+[#$!*]$
+2 Si vous avez de souci pour se connecter désinstallé bcrypt et le réinstallé à nouveau  
+3 Pour faire fonctionner le frontend del'application lisez le readme.md inclu dans le dossier Web-Developer-P6
+
 
 
