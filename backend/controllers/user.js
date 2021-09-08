@@ -20,7 +20,8 @@ exports.Usersignup=(req,res)=>{
     });
     user.validate((error)=>{
         if(error){
-                console.log( {error:error._message});
+                console.log("mon erreur");
+                console.log( {error:error.message});
             res.status(422).json({message:error.message});
         }else{ 
            
@@ -45,11 +46,12 @@ exports.Usersignup=(req,res)=>{
 */
 exports.userLogin= (req,res)=>{
     const password="1235";
+    //on crypte l'email saisie par l'utilisateur avant de le sauvegarder dans la base de données 
     const email=crypto.createHmac('sha256',password).update(req.body.email).digest('hex');
   User.findOne({email:email}, async function(error,user){
     if(error){
         console.log(error);
-            return res.json({message:"email existe deja"});
+            return res.status(500).json({message:error.message});
     }else{
         if(!user){
             return res.status(400).json({message:"NOT FOUND USER"});
@@ -69,7 +71,7 @@ exports.userLogin= (req,res)=>{
                     )
                     })
                 }else{
-                     return res.status(400).json({message:"mot de passe incorrectes"});
+                     return res.status(401).json({message:"mot de passe incorrectes"});
                 }
         }
     }

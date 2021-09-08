@@ -72,7 +72,7 @@ Sauce.updateOne(
     {...sauceObject,_id:req.params.id},
     {runValidators:true},function(error){//on verifie les données saisies par l'utilisateur  
         if(error){
-            return res.status(400).json({message:error.message});
+            return res.status(401).json({message:error.message});
         }else{
             res.status(200).json({message:"la sauce a été modifiée avec succes"});
         }
@@ -97,7 +97,7 @@ exports.deleteSauce=(req,res)=>{
          fs.unlink(path,()=>{
             Sauce.deleteOne({_id:req.params.id})
             .then(()=>res.status(200).json({message:"la sauce a été supprimé"}))
-            .catch(error=>res.status(400).json({message:error.message}));
+            .catch(error=>res.status(500).json({message:error.message}));
          })
        
         }

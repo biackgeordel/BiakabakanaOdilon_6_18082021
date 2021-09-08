@@ -25,5 +25,5 @@ password:{
 
 })
 //on applique mongoose-unique-validator sur notre schema utlisateur
-userSchema.plugin(validUnique);
+userSchema.plugin(validUnique,{message:" email saisie existe deja"});
 module.exports=mongoose.model('User',userSchema);

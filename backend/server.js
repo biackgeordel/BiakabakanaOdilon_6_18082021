@@ -7,6 +7,7 @@ app.set('port',port);
 
 const errorHandler=error=>{
     const adress=server.address();
+    
     if(error.syscall !=='listen'){
         throw error;
     }
@@ -16,7 +17,7 @@ const errorHandler=error=>{
             process.exit(1);
             break;
         case 'EADDRINUSE':
-            console.error(adress.port+ ': le  port est deja utilisé par un autre serveur ');
+            console.error(`le port: ${port} est déja utilsé par un autre serveur`);
             process.exit(1);
             break;
         default:
