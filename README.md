@@ -16,7 +16,9 @@ Pour faire fonctionner le backend vous devez tapez:
 * jsonwebtoken  
 * mongoose  
 * mongoose-unique-validator  
-* multer
+* multer  
+Voici le lien du depot du projet sur github:  
+https://github.com/biackgeordel/BiakabakanaOdilon_6_18082021
 
 
 

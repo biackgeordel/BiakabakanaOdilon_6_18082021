@@ -22,6 +22,7 @@ exports.Usersignup=(req,res)=>{
         if(error){
                 console.log("mon erreur");
                 console.log( {error:error.message});
+               
             res.status(422).json({message:error.message});
         }else{ 
            
