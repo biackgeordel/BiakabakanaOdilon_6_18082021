@@ -16,9 +16,9 @@ route.post('/',auth,multer,controllerSauces.createSauces);
 
 //route pour modifier la sauce
 route.put('/:id',auth,multer,controllerSauces.updateSauce);
-
+//route pour supprimer une sauce
 route.delete('/:id',auth,controllerSauces.deleteSauce);
-
+//route pour donner son avis concernant la sauce
 route.post('/:id/like',auth,controllerSauces.likeSauce);
 
 

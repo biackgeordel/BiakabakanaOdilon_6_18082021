@@ -6,14 +6,22 @@ const crypto=require('crypto');
 
 //middleware pour la création d'un utilisateur
 /*
+On verifie le format de l'email puis on le crypte et 
 on cree une instance User puis on appelle la fonction  validate () pour valider
-le format de données du mot de passe 
+le format de données du mot de passe et l'unicité de l'adresse mail
 si error égal a null en crypte le mot de passe et on l'enregistre user   dans la base de données 
 
 */
 exports.Usersignup=(req,res)=>{
     const password="1235";
-    const emailCrypt= crypto.createHmac('sha256',password).update(req.body.email).digest('hex');
+    let emailCrypt;
+    const email= new RegExp(/^[a-z]+[.a-z0-9\-]+@[a-z]+[.][a-z]{2,}$/);
+    if(req.body.email.match(email)){
+        emailCrypt= crypto.createHmac('sha256',password).update(req.body.email).digest('hex'); 
+    }else{
+        return res.status(401).json({message:"l'email n\'est pas au bon format"});
+    }
+  
     const user=new User({
         email:emailCrypt,
         password:req.body.password
@@ -55,7 +63,7 @@ exports.userLogin= (req,res)=>{
             return res.status(500).json({message:error.message});
     }else{
         if(!user){
-            return res.status(400).json({message:"NOT FOUND USER"});
+            return res.status(404).json({message:"NOT FOUND USER"});
 
         }else{
             let valid=await bcrypt.compare(req.body.password,user.password);
